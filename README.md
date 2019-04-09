@@ -14,20 +14,20 @@ Please run the following commands:
 
 School endpoints:
 
-	* Get: api/schools _(gets an index of all school records)_
-	* Post: api/schools _(creates a record for a new school)_
-	* Get: api/schools/{school} _(gets the record for an idividual school)_
-	* Put: api/schools/{school} _(updates the record for an idividual school)_
-	* Delete: api/schools/{school} _(deletes the record for an idividual school)_
+	* Get: api/schools  --  gets an index of all school records
+	* Post: api/schools  --  creates a record for a new school
+	* Get: api/schools/{school_id}  --  gets the record for an idividual school
+	* Put: api/schools/{school_id}  --  updates the record for an idividual school
+	* Delete: api/schools/{school_id}  --  deletes the record for an idividual school
 
 
 School-Product endpoints:
 
-	* Get: api/schools/{school}/products _(gets an index of all product records attached to the specified school)_
-	* Post: api/schools/{school}/products _(creates a record for a new product attached to the specified school)_
-	* Get: api/schools/{school}/products/{product} _(gets the record for an idividual product attached to the specified school)_
-	* Put: api/schools/{school}/products/{product} _(updates the record for an idividual product attached to the specified school)_
-	* Delete: api/schools/{school}/products/{product} _(deletes the record for an idividual product attached to the specified school)_
+	* Get: api/schools/{school_id}/products  --  gets an index of all product records attached to the specified school
+	* Post: api/schools/{school_id}/products  --  creates a record for a new product attached to the specified school
+	* Get: api/schools/{school_id}/products/{product_id}  --  gets the record for an idividual product attached to the specified school
+	* Put: api/schools/{school_id}/products/{product_id}  --  updates the record for an idividual product attached to the specified school
+	* Delete: api/schools/{school_id}/products/{product_id}  --  deletes the record for an idividual product attached to the specified school
 
 
 Route::get('export/schools', ['uses' => 'Api\SchoolController@export', 'as' => 'schools.export']);// to export the schools CSV
@@ -35,8 +35,8 @@ Route::get('export/schools', ['uses' => 'Api\SchoolController@export', 'as' => '
 
 Product endpoints:
 
-	* Get: api/products/schoolsCount _(gets list of product ids, shared product name, and the number of schools attached to that product - *can accept an optional "school_count" url parameter*)_
-	* Get: api/products/value _(gets list of products and their value, with the school they are associated with - *can accept an optional "value" url parameter*)_
+	* Get: api/products/schoolsCount  --  gets list of product ids, shared product name, and the number of schools attached to that product - can accept an optional "school_count" url parameter
+	* Get: api/products/value  --  gets list of products and their value, with the school they are associated with - can accept an optional "value" url parameter
 
 
 ## Ways I could improve or expand upon the current version of my API
