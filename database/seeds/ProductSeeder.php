@@ -15,7 +15,7 @@ class ProductSeeder extends Seeder
     	foreach(['Full Page Ad', 'Half Page Ad', 'Quarter Page Ad', 'Eighth Page Ad'] as $name) {
     		Product::create([
     			'name' => $name,
-    			'price' => rand(100,1000) * 100
+    			'price' => rand(1,1000)
     		]);
     	}
     }
