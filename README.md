@@ -59,3 +59,10 @@ However, the statement _"Get a list of products filtered by a given product valu
 
 
 Due to this, its impossible to complete either _"#4 - Get a list of products that are associated with more than one school"_ specifically _"Each record should contain: product_id, product_name, school_count"_ if "Products" are on a school by school basis. Items from the Standard List of Product names don't have an ID, and if they were in the database they would be referred to as something other than "Product", perhaps "Product Category".
+
+## Notes on my implementation
+
+I used `spatie/laravel-fractal` because they do a phoenomenal job following the JSON Api spec, allowing for a normalized transformation of Eloquent models and their relationships for Api consumption.
+
+
+Your example used City, State and Zip as School attributes, but faker doesn't guarantee that a stateAbbreviation and a state, or city etc. would all be in the same region. I didn't want to create a "University of San Diegeo: Oklahoma City, Florida, 12186"... Maybe not a big deal, but it wasn't utilized anywhere else so I just opted to avoid that confusion. The faker college names do look pretty real though, I think! :)
