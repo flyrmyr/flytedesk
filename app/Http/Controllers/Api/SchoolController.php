@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\School;
 use App\Transformers\SchoolTransformer;
 use App\Transformers\ProductTransformer;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class SchoolController extends Controller
 {
@@ -22,6 +23,23 @@ class SchoolController extends Controller
 		   ->transformWith(new SchoolTransformer())
 		   ->includeProducts()
 		   ->respond();
+    }
+
+    public function export()
+    {
+        if(request()->has('school_ids')) {
+            $schools = School::whereIn('id', explode(',', request()->get('school_ids')))->get();
+        } else {
+            $schools = School::all();
+        }
+
+        return (new FastExcel($schools))->download('schools.csv', function ($school) {
+            return [
+                'Name' => $school->name,
+                'Postal Code' => $school->postal_code,
+                'Circulation' => $school->circulation,
+            ];
+        });
     }
 
     public function create()

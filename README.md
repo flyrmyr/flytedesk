@@ -15,11 +15,11 @@ Please run the following commands:
 School endpoints:
 
 	* Get: api/schools  --  gets an index of all school records
+	* Get: api/schools/export -- gets a csv of all school records - can accept an optional "school_ids" url parameter as a comma separated list of ids
 	* Post: api/schools  --  creates a record for a new school with request data (name, postal_code, circulation)
 	* Get: api/schools/{school_id}  --  gets the record for an idividual school
 	* Put: api/schools/{school_id}  --  updates the record for an idividual school with request data (name, postal_code, circulation)
 	* Delete: api/schools/{school_id}  --  deletes the record for an idividual school
-
 
 School-Product endpoints:
 
@@ -29,10 +29,6 @@ School-Product endpoints:
 	* Put: api/schools/{school_id}/products/{product_id}  --  updates the record for an idividual product attached to the specified school (price)
 	* Delete: api/schools/{school_id}/products/{product_id}  --  deletes the record for an idividual product attached to the specified school
 
-
-Route::get('export/schools', ['uses' => 'Api\SchoolController@export', 'as' => 'schools.export']);// to export the schools CSV
-
-
 Product endpoints:
 
 	* Get: api/products/schoolsCount  --  gets list of product ids, shared product name, and the number of schools attached to that product - can accept an optional "school_count" url parameter
@@ -41,7 +37,8 @@ Product endpoints:
 ---
 
 ## Ways I could improve or expand upon the current version of my API
-
+	
+	* Documentation of each line of code could always be better, but I tried to stay within the 4-6hr timeframe...
 	* Currently there is no way to switch the school a product is associated with - it must be deleted and re-created instead
 	* The schoolsCount endpoint is very un-optomized in its queries, due to faulty data architecture outlined in the instructions
 	* The `schholsCount` and `value` endpoints could be improved to accept a range instead of just a single number
