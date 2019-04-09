@@ -27,10 +27,7 @@ class ProductTransformer extends TransformerAbstract
             'id' => $product->id,
             'name' => $product->name,
             'price' => money_format('$%i', $product->price),
-            'value' => money_format('$%i', $product->value),
-            // 'school_count' => $product->schools->count()
-
-            // school_id, school_name, product_id, product_name, value
+            'value' => money_format('$%i', $product->value)
         ];
     }
 
