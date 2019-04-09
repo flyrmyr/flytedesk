@@ -12,7 +12,7 @@ Please run the following commands:
 	3. Run `php artisan migrate:refresh --seed`
 	4. Visit the endpoints outlined in the instructions
 
-Active urls are:
+School endpoints:
 	* Get: api/schools _(gets an index of all school records)_
 	* Post: api/schools _(creates a record for a new school)_
 	* Get: api/schools/{school} _(gets the record for an idividual school)_
@@ -20,6 +20,7 @@ Active urls are:
 	* Delete: api/schools/{school} _(deletes the record for an idividual school)_
 
 
+School-Product endpoints:
 	* Get: api/schools/{school}/products _(gets an index of all product records attached to the specified school)_
 	* Post: api/schools/{school}/products _(creates a record for a new product attached to the specified school)_
 	* Get: api/schools/{school}/products/{product} _(gets the record for an idividual product attached to the specified school)_
@@ -29,7 +30,8 @@ Active urls are:
 
 Route::get('export/schools', ['uses' => 'Api\SchoolController@export', 'as' => 'schools.export']);// to export the schools CSV
 
-	
+
+Product endpoints:
 	* Get: api/products/schoolsCount _(gets list of product ids, shared product name, and the number of schools attached to that product - *can accept an optional "school_count" url parameter*)_
 	* Get: api/products/value _(gets list of products and their value, with the school they are associated with - *can accept an optional "value" url parameter*)_
 
