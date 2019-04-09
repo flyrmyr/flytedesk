@@ -50,6 +50,12 @@ Product endpoints:
 	* Currently schools can have multiple copies of the same product, with different prices. Not sure if this should be restricted.
 
 A bit of context on the last point:
+
+
 The statements _"Each product has a name and a price, and can be associated with one or more schools."_ and _"Get a list of products that are associated with more than one school"_ seem to suggest that the app only has 4 Products, each with a set price.
-However, the statement _"Get a list of products filtered by a given product value. Value is calculated by the price per viewer (eg: product price / school circulation)"_ suggests that each school has a set of products, each with a price defined on a school by school basis. The _"A example of School/Product data"_ json data also supports this hypothesis.
+
+
+However, the statement _"Get a list of products filtered by a given product value. Value is calculated by the price per viewer (eg: product price / school circulation)"_ suggests that each school has a set of products, each with a price defined on a school by school basis. The _"A example of School/Product data"_ json data also supports this competing version.
+
+
 Due to this, its impossible to complete either _"#4 - Get a list of products that are associated with more than one school"_ specifically _"Each record should contain: product_id, product_name, school_count"_ if "Products" are on a school by school basis. Items from the Standard List of Product names don't have an ID, and if they were in the database they would be referred to as something other than "Product", perhaps "Product Category".
