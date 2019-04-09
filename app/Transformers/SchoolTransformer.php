@@ -26,6 +26,7 @@ class SchoolTransformer extends TransformerAbstract
         return [
             'id' => $school->id,
             'name' => $school->name,
+            'postal_code' => $school->postal_code,
             'circulation' => $school->circulation
         ];
     }

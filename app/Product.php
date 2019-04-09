@@ -18,16 +18,22 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'price'];
+    protected $fillable = ['school_id', 'name', 'price'];
+
+    public static $standardList = ['Full Page Ad', 'Half Page Ad', 'Quarter Page Ad', 'Eighth Page Ad'];
 
     /**
      * The schools that belong to the product.
      */
-    public function schools()
+    public function school()
     {
-        return $this->belongsToMany('App\School');
+        return $this->belongsTo('App\School');
     }
 
+    public function getValueAttribute()
+    {
+        return round($this->price / $this->school->circulation, 2);
+    }
 
     public function getPriceAttribute($price)
 	{

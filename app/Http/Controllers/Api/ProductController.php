@@ -11,66 +11,50 @@ use App\Product;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource by value.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(School $school)
+    public function value()
     {
-    	return fractal()
-		   ->collection($school->products)
+    	$products = Product::with('school')->get();
+
+    	if(request()->has('value')) {
+    		$products = $products->where('value', request()->get('value'));
+    	}
+
+        return fractal()
+		   ->collection($products)
 		   ->transformWith(new ProductTransformer())
+		   ->includeSchool()
 		   ->respond();
     }
 
-    public function create()
+    /**
+     * Display a listing of the resource by schoolsCount.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function schoolsCount()
     {
-    	// Validate input
-    	$input = request()->validate([
-	        'name' => 'required|string|min:1',
-	        'price' => 'required|numeric|min:1',
-	    ]);
+    	$standardProducts = collect(Product::$standardList)->map(function($name) {
+    		return [
+    			'product_ids' => Product::where('name', $name)->pluck('id')->toArray(),
+    			'product_name' => $name,
+    			'school_count' => School::whereHas('products', function($query) use ($name) {
+	    			return $query->where('name', $name);
+	    		})->count()
+	    	];
+    	});
 
-    	$product = Product::create([
-    		'name' => $input['name'],
-    		'price' => $input['price']
+    	if(request()->has('school_count')) {
+    		$standardProducts = $standardProducts->filter(function($standardProduct) {
+    			return $standardProduct['school_count'] == request()->get('school_count');
+    		});
+    	}
+
+    	return json_encode([
+    		'data' => array_values($standardProducts->toArray())
     	]);
-
-    	return $this->show($product);
-    }
-
-    public function show(Product $product)
-    {
-    	return fractal()
-		   ->item($product)
-		   ->transformWith(new ProductTransformer())
-		   ->respond();
-    }
-
-    public function update(Product $product)
-    {
-    	// Validate input
-    	$input = request()->validate([
-	        'price' => 'numeric|min:1',
-	    ]);
-
-    	// Update attributes if passed
-    	if(isset($input['price'])) {
-    		$product->price = $input['price'];
-    	}
-
-    	// Save if attributes changed
-    	if($product->isDirty()) {
-    		$product->save();
-    	}
-
-    	return $this->show($product);
-    }
-
-    public function delete(Product $product)
-    {
-    	$product->delete();
-
-    	return json_encode(true);
     }
 }

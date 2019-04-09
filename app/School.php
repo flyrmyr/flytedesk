@@ -18,13 +18,13 @@ class School extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'circulation'];
+	protected $fillable = ['name', 'postal_code', 'circulation'];
 
     /**
      * The products that belong to the school.
      */
     public function products()
     {
-        return $this->belongsToMany('App\Product');
+        return $this->hasMany('App\Product');
     }
 }

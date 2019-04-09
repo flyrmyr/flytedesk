@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\School;
 use App\Transformers\SchoolTransformer;
+use App\Transformers\ProductTransformer;
 
 class SchoolController extends Controller
 {
@@ -28,12 +29,14 @@ class SchoolController extends Controller
     	// Validate input
     	$input = request()->validate([
 	        'name' => 'required|string|min:1',
+            'postal_code' => 'required|integer|digits_between:5,10',
 	        'circulation' => 'required|integer|min:1',
 	    ]);
 
     	// Create school with input
     	$school = School::create([
     		'name' => $input['name'],
+            'postal_code' => $input['postal_code'],
     		'circulation' => $input['circulation'],
     	]);
 
@@ -47,6 +50,14 @@ class SchoolController extends Controller
 		   ->transformWith(new SchoolTransformer())
 		   ->includeProducts()
 		   ->respond();
+    }
+
+    public function products(School $school)
+    {
+        return fractal()
+           ->collection($school->products)
+           ->transformWith(new ProductTransformer())
+           ->respond();
     }
 
     public function update(School $school)

@@ -17,6 +17,8 @@ class CreateSchoolsTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('name');
+            
+            $table->string('postal_code');
 
             $table->integer('circulation');
             
