@@ -18,7 +18,7 @@ class School extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name'];
+	protected $fillable = ['name', 'circulation'];
 
     /**
      * The products that belong to the school.

@@ -22,6 +22,7 @@ $factory->define(School::class, function (Faker $faker) {
 
 	// Create school with created name
     return [
-        'name' => $name
+        'name' => $name,
+        'circulation' => rand(2000, 60000)
     ];
 });

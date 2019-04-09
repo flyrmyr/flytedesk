@@ -25,9 +25,15 @@ class ProductController extends Controller
 
     public function create()
     {
+    	// Validate input
+    	$input = request()->validate([
+	        'name' => 'required|string|min:1',
+	        'price' => 'required|numeric|min:1',
+	    ]);
+
     	$product = Product::create([
-    		'name' => request()->get('name'),
-    		'price' => request()->get('price')
+    		'name' => $input['name'],
+    		'price' => $input['price']
     	]);
 
     	return $this->show($product);
@@ -43,9 +49,20 @@ class ProductController extends Controller
 
     public function update(Product $product)
     {
-    	$product->update([
-    		'price' => request()->get('price')
-    	]);
+    	// Validate input
+    	$input = request()->validate([
+	        'price' => 'numeric|min:1',
+	    ]);
+
+    	// Update attributes if passed
+    	if(isset($input['price'])) {
+    		$product->price = $input['price'];
+    	}
+
+    	// Save if attributes changed
+    	if($product->isDirty()) {
+    		$product->save();
+    	}
 
     	return $this->show($product);
     }

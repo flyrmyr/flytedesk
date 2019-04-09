@@ -25,7 +25,8 @@ class SchoolTransformer extends TransformerAbstract
     {
         return [
             'id' => $school->id,
-            'name' => $school->name
+            'name' => $school->name,
+            'circulation' => $school->circulation
         ];
     }
 

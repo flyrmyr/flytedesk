@@ -25,8 +25,16 @@ class SchoolController extends Controller
 
     public function create()
     {
+    	// Validate input
+    	$input = request()->validate([
+	        'name' => 'required|string|min:1',
+	        'circulation' => 'required|integer|min:1',
+	    ]);
+
+    	// Create school with input
     	$school = School::create([
-    		'name' => request()->get('name')
+    		'name' => $input['name'],
+    		'circulation' => $input['circulation'],
     	]);
 
     	return $this->show($school);
@@ -43,9 +51,24 @@ class SchoolController extends Controller
 
     public function update(School $school)
     {
-    	$school->update([
-    		'name' => request()->get('name')
-    	]);
+    	// Validate input
+    	$input = request()->validate([
+	        'name' => 'string|min:1',
+	        'circulation' => 'integer|min:1',
+	    ]);
+
+    	// Update attributes if passed
+    	if(isset($input['name'])) {
+    		$school->name = $input['name'];
+    	}
+    	if(isset($input['circulation'])) {
+    		$school->circulation = $input['circulation'];
+    	}
+
+    	// Save if attributes changed
+    	if($school->isDirty()) {
+    		$school->save();
+    	}
 
     	return $this->show($school);
     }
