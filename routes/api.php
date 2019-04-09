@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'schools', 'as' => 'schools.'], function(){
 	Route::get('/', ['uses' => 'Api\SchoolController@index', 'as' => 'index']);// to access the schools resource
+	
 	Route::post('/', ['uses' => 'Api\SchoolController@create', 'as' => 'create']);
 	
 	Route::get('{school}', ['uses' => 'Api\SchoolController@show', 'as' => 'show']);
@@ -34,5 +35,13 @@ Route::group(['prefix' => 'products', 'as' => 'products.'], function(){
 	Route::get('/', ['uses' => 'Api\ProductController@index', 'as' => 'index']);// to access the schools count 
 	Route::get('products/schoolsCount', ['uses' => 'Api\ProductController@schoolsCount', 'as' => 'schoolsCount']);// to access the schools count endpoint
 	Route::get('products/value', ['uses' => 'Api\ProductController@value', 'as' => 'value']);// to access the product value list endpoint
+
+	Route::post('/', ['uses' => 'Api\ProductController@create', 'as' => 'create']);
+
+	Route::get('{product}', ['uses' => 'Api\ProductController@show', 'as' => 'show']);
+
+	Route::put('{product}', ['uses' => 'Api\ProductController@update', 'as' => 'update']);
+
+	Route::delete('{product}', ['uses' => 'Api\ProductController@delete', 'as' => 'delete']);
 });
 

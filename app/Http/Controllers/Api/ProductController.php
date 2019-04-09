@@ -22,4 +22,38 @@ class ProductController extends Controller
 		   ->transformWith(new ProductTransformer())
 		   ->respond();
     }
+
+    public function create()
+    {
+    	$product = Product::create([
+    		'name' => request()->get('name'),
+    		'price' => request()->get('price')
+    	]);
+
+    	return $this->show($product);
+    }
+
+    public function show(Product $product)
+    {
+    	return fractal()
+		   ->item($product)
+		   ->transformWith(new ProductTransformer())
+		   ->respond();
+    }
+
+    public function update(Product $product)
+    {
+    	$product->update([
+    		'price' => request()->get('price')
+    	]);
+
+    	return $this->show($product);
+    }
+
+    public function delete(Product $product)
+    {
+    	$product->delete();
+
+    	return json_encode(true);
+    }
 }

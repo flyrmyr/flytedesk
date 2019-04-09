@@ -26,7 +26,7 @@ class SchoolController extends Controller
     public function create()
     {
     	$school = School::create([
-    		'name' => request()->name
+    		'name' => request()->get('name')
     	]);
 
     	return $this->show($school);
@@ -44,7 +44,7 @@ class SchoolController extends Controller
     public function update(School $school)
     {
     	$school->update([
-    		'name' => request()->name
+    		'name' => request()->get('name')
     	]);
 
     	return $this->show($school);
